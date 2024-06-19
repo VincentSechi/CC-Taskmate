@@ -8,7 +8,6 @@ import { AuthContext } from './AuthContext'
 import './App.css'
 import { useState, useEffect, useContext } from 'react'
 import { getAllTasks, addTask, updateTask, deleteTask } from './db'
-import { update } from 'three/examples/jsm/libs/tween.module.js'
 export default function App() {
 
   const [tasklist, setTasklist] = useState(JSON.parse(localStorage.getItem("tasklist")) || [])
