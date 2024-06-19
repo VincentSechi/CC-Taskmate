@@ -1,0 +1,56 @@
+import { useState, useContext } from "react"
+import { AuthContext } from "../AuthContext"
+
+const Register = ({toggleForm}) => {
+    const { register } = useContext(AuthContext)
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
+    const [error, setError] = useState('')
+    const [success, setSuccess] = useState('')
+
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        register(username, password)
+            .then(() => {
+                setSuccess("Inscription effectuée, vous pouvez à présent vous connecter")
+                setError('')
+            })
+            .catch(() => {
+                setError("Erreur lors de l'inscription")
+                setSuccess('')
+            })
+    }
+
+  return (
+    <div className="login-container">
+        <h2>Inscription</h2>
+        {error && <div className="error">{error}</div>}
+        {success && <div className="success">{success}</div>}
+        <form onSubmit={handleSubmit}>
+            <div>
+                <label>Nom d'utilisateur</label>
+                <input 
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                />
+            </div>
+            <div>
+                <label>Mot de passe</label>
+                <input 
+                    type="text"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+            </div>
+            <button type="submit">Inscription</button>
+        </form>
+        <div onClick={toggleForm}>
+            Connexion
+        </div>
+    </div>
+  )
+}
+
+export default Register
